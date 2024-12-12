@@ -6,7 +6,7 @@
   "repository": {
     "url": "https://github.com/archenovalis/find-all-in-files"
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Archie"
   },
@@ -23,12 +23,17 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:find-all-in-files.sendEditorToFindInFilesKeybind"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "find-all-in-files.sendToFindInFiles",
+        "command": "find-all-in-files.sendFileToFindInFiles",
+        "title": "Find in File..."
+      },
+      {
+        "command": "find-all-in-files.sendEditorToFindInFiles",
         "title": "Find in File..."
       }
     ],
@@ -36,13 +41,28 @@
       "explorer/context": [
         {
           "when": "!explorerResourceIsFolder && isFileSystemResource",
-          "command": "find-all-in-files.sendToFindInFiles",
+          "command": "find-all-in-files.sendFileToFindInFiles",
+          "group": "1_diff"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "when": "true",
+          "command": "find-all-in-files.sendEditorToFindInFiles",
           "group": "1_diff"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "find-all-in-files.sendEditorToFindInFilesKeybind",
+        "key": "ctrl+shift+f",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
+    "go": "vsce package",
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",

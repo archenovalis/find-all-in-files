@@ -2,7 +2,37 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-  const sendToFindInFilesCommand = vscode.commands.registerCommand('find-all-in-files.sendToFindInFiles', (uri: vscode.Uri) => {
+  const sendEditorToFindInFilesCommand = vscode.commands.registerCommand('find-all-in-files.sendEditorToFindInFiles', (commandContext) => {
+    if (commandContext.scheme !== "file") {
+      vscode.window.showErrorMessage("Tab is not a Text Editor!");
+      return;
+    }
+
+    vscode.commands.executeCommand(
+      "find-all-in-files.sendFileToFindInFiles",
+      vscode.Uri.from(commandContext)
+    );
+  });
+
+  context.subscriptions.push(sendEditorToFindInFilesCommand);
+
+
+  const sendEditorToFindInFilesKeybindCommand = vscode.commands.registerCommand('find-all-in-files.sendEditorToFindInFilesKeybind', () => {
+    if (!vscode.window.activeTextEditor || vscode.window.activeTextEditor.document.uri.scheme !== "file") {
+      vscode.window.showErrorMessage("Active tab is not a Text Editor!");
+      return;
+    }
+
+    vscode.commands.executeCommand(
+      "find-all-in-files.sendFileToFindInFiles",
+      vscode.window.activeTextEditor.document.uri
+    );
+  });
+
+  context.subscriptions.push(sendEditorToFindInFilesKeybindCommand);
+
+
+  const sendFileToFindInFilesCommand = vscode.commands.registerCommand('find-all-in-files.sendFileToFindInFiles', (uri: vscode.Uri) => {
     const fileUri = uri.fsPath;
 
     const folders = vscode.workspace.workspaceFolders;
@@ -26,5 +56,5 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  context.subscriptions.push(sendToFindInFilesCommand);
+  context.subscriptions.push(sendFileToFindInFilesCommand);
 }
