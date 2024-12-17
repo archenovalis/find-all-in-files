@@ -3,9 +3,9 @@
 A simple VSCode extension that sends a file or folder path to the "Find in Files" input field.
 
 ## Features
-
-- Adds a custom right-click command to the Explorer context menu.
-- When right-clicking a file or folder, it sends the selected file or folder path to the "Find in Files" input box.
+Adds a custom right-click command "Find in File":
+- When right-clicking any file in the explorer window, an open file's title, or anything within the active file, it sends the selected file path to the "Find in Files" input box.
+- Replaces Ctrl+Shift+F so that it searches within the current workspace folder, instead of the entire workspace.
 
 ## Requirements
 

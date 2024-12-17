@@ -6,7 +6,7 @@
   "repository": {
     "url": "https://github.com/archenovalis/find-all-in-files"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Archie"
   },
@@ -23,7 +23,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:find-all-in-files.sendEditorToFindInFilesKeybind"
+    "onCommand:find-all-in-files.sendEditorToFindInFilesKeybind",
+    "onCommand:find-all-in-files.sendFileToFindInFiles",
+    "onCommand:find-all-in-files.sendEditorToFindInFiles"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -46,6 +48,13 @@
         }
       ],
       "editor/title/context": [
+        {
+          "when": "true",
+          "command": "find-all-in-files.sendEditorToFindInFiles",
+          "group": "1_diff"
+        }
+      ],
+      "editor/context": [
         {
           "when": "true",
           "command": "find-all-in-files.sendEditorToFindInFiles",
