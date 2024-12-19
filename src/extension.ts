@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
         folderPath = path.relative(shortestFolder.uri.fsPath, longestFolder.uri.fsPath);
       } else  */if (longestFolder) {
         // Single Workspace Folder
-        folderPath = path.basename(longestFolder.uri.fsPath);
+        folderPath = './'+path.basename(longestFolder.uri.fsPath);
       }
       if (folderPath !== '') {
           // Execute the Find in Files command with the workspace folder's path and query
